@@ -1,4 +1,6 @@
-Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
+stm32-ssd1306/ssd1306/ssd1306.o: ../stm32-ssd1306/ssd1306/ssd1306.c \
+ ../stm32-ssd1306/ssd1306/ssd1306.h \
+ ../stm32-ssd1306/ssd1306/ssd1306_conf.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
  ../Core/Inc/stm32f4xx_hal_conf.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h \
@@ -27,12 +29,9 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
- ../Core/Inc/i2c.h ../Core/Inc/main.h ../Core/Inc/usart.h \
- ../Core/Inc/gpio.h \
- G:/Dokumenty/SW_Mini_Fridge/SW_Mini_Fridge/stm32-ssd1306/ssd1306/ssd1306.h \
- G:/Dokumenty/SW_Mini_Fridge/SW_Mini_Fridge/stm32-ssd1306/ssd1306/ssd1306_conf.h \
- G:/Dokumenty/SW_Mini_Fridge/SW_Mini_Fridge/stm32-ssd1306/ssd1306/ssd1306_fonts.h
-../Core/Inc/main.h:
+ ../stm32-ssd1306/ssd1306/ssd1306_fonts.h
+../stm32-ssd1306/ssd1306/ssd1306.h:
+../stm32-ssd1306/ssd1306/ssd1306_conf.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 ../Core/Inc/stm32f4xx_hal_conf.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h:
@@ -61,10 +60,4 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:
-../Core/Inc/i2c.h:
-../Core/Inc/main.h:
-../Core/Inc/usart.h:
-../Core/Inc/gpio.h:
-G:/Dokumenty/SW_Mini_Fridge/SW_Mini_Fridge/stm32-ssd1306/ssd1306/ssd1306.h:
-G:/Dokumenty/SW_Mini_Fridge/SW_Mini_Fridge/stm32-ssd1306/ssd1306/ssd1306_conf.h:
-G:/Dokumenty/SW_Mini_Fridge/SW_Mini_Fridge/stm32-ssd1306/ssd1306/ssd1306_fonts.h:
+../stm32-ssd1306/ssd1306/ssd1306_fonts.h:
