@@ -1,4 +1,4 @@
-#include <stdbool.h>
+
 #include "main.h"
 #include "i2c.h"
 #include "tim.h"
@@ -6,23 +6,14 @@
 #include "gpio.h"
 #include "ssd1306.h"
 
+#include "menuDisplay.h"
+#include "ioManager.h"
 
-void wait(uint32_t time){
-uint32_t target = uwTick + time;
-while(uwTick != target);
-};
+int counter = 0;
 
-struct Data{
-	bool fanEnable;
-	bool peltEnable;
 
-	float Kp;
-	float Ki;
-	float Kd;
 
-	float measuredTemp;
-	float targetTemp;
-} data = {0,0,0,0,0,0,0};
+Data data = {0,0,0,0,0,0,0,15,75};
 
 
 
@@ -44,38 +35,20 @@ int main(void)
   MX_TIM4_Init();
 
   HAL_TIM_Base_Start_IT(&htim3);
-  ssd1306_Init();
-  ssd1306_Fill(0);
-  ssd1306_UpdateScreen();
 
-  bool flag = 0;
-  uint8_t c = 0;
-  char b[] = "30.0C";
-  char b2[8];
+  menuDisplay_Init();
+
   while (1)
   {
-	  wait(500);
-	  c++;
-	  flag = !flag;
+	  wait(100);
 
-	  ssd1306_DrawRectangle(0, 0, 16*5+5, 31, flag);
-	  ssd1306_SetCursor(1, 1);
-	  ssd1306_WriteString(b, Font_16x26,  1);
-
-
-	  ssd1306_SetCursor(0,32);
-	  ssd1306_WriteString("Thread:", Font_6x8,  1);
-	  ssd1306_SetCursor(0,40);
-	  itoa(c,b2,10);
-	  ssd1306_WriteString(b2, Font_11x18,  1);
-	  ssd1306_SetCursor(64,40);
-	  itoa(getTIM3Counter(),b2,10);
-	  ssd1306_WriteString(b2, Font_11x18,  1);
-	  ssd1306_UpdateScreen();
+	  menuDisplay_Update();
   }
 
 
 }
+
+
 
 
 void SystemClock_Config(void)

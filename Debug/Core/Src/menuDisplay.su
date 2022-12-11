@@ -1,0 +1,3 @@
+../Core/Src/menuDisplay.c:15:6:menuDisplay_Init	8	static
+../Core/Src/menuDisplay.c:24:5:animationHelper	24	static
+../Core/Src/menuDisplay.c:30:6:menuDisplay_Update	40	static

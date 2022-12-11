@@ -62,7 +62,7 @@ main-build: SW_Mini_Fridge.elf secondary-outputs
 
 # Tool invocations
 SW_Mini_Fridge.elf SW_Mini_Fridge.map: $(OBJS) $(USER_OBJS) G:\Dokumenty\SW_Mini_Fridge\SW_Mini_Fridge\STM32F401CDUX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "SW_Mini_Fridge.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"G:\Dokumenty\SW_Mini_Fridge\SW_Mini_Fridge\STM32F401CDUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="SW_Mini_Fridge.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+	arm-none-eabi-gcc -o "SW_Mini_Fridge.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"G:\Dokumenty\SW_Mini_Fridge\SW_Mini_Fridge\STM32F401CDUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="SW_Mini_Fridge.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

@@ -1,0 +1,5 @@
+../Core/Src/ioManager.c:12:6:wait	24	static
+../Core/Src/ioManager.c:17:6:handleButtons	4	static
+../Core/Src/ioManager.c:25:6:changeTargetValues	16	static
+../Core/Src/ioManager.c:34:6:handleEncoderTurn	16	static
+../Core/Src/ioManager.c:60:6:HAL_GPIO_EXTI_Callback	16	static

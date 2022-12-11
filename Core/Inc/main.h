@@ -28,7 +28,23 @@ extern "C" {
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx_hal.h"
+#include <stdbool.h>
 
+typedef volatile struct Data{
+	bool fanEnable;
+	bool peltEnable;
+	bool targetMode;
+
+	float Kp;
+	float Ki;
+	float Kd;
+
+	float measuredTemp;
+	int targetTemp;
+	int currentPow;
+
+
+} Data;
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
