@@ -10,6 +10,8 @@ RM := rm -rf
 # All of the sources participating in the build are defined here
 -include sources.mk
 -include stm32-ssd1306/ssd1306/subdir.mk
+-include lwow/lwow/src/lwow/subdir.mk
+-include lwow/lwow/src/devices/subdir.mk
 -include Drivers/STM32F4xx_HAL_Driver/Src/subdir.mk
 -include Core/Startup/subdir.mk
 -include Core/Src/subdir.mk

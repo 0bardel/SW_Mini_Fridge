@@ -8,14 +8,18 @@
 
 #include "menuDisplay.h"
 #include "ioManager.h"
+#include "lwow/lwow.h"
+#include "lwow/devices/lwow_device_ds18x20.h"
+#include "scan_devices.h"
 
-int counter = 0;
+extern lwow_ll_drv_t lwow_ll_drv_stm32_hal; 		//Low-level LWOW driver. Defines UART writes, reads, inits, deinits.
+extern UART_HandleTypeDef huart2; 					//UART port for LWOW connection
+lwow_t ow; 											//One-wire instance
+lwow_rom_t rom_ids[1]; 								//Found devices list.
+size_t rom_found; 									// Number of found OW ROMs.
 
 
-
-Data data = {0,0,0,0,0,0,0,15,75};
-
-
+Data data = {1,0.1,-0.5,0,0,100,0,POWER_OFF,""};	//Data model used by pretty much everything
 
 void SystemClock_Config(void);
 
@@ -23,33 +27,42 @@ int main(void)
 {
 
   HAL_Init();
-
-
   SystemClock_Config();
-
 
   MX_GPIO_Init();
   MX_I2C1_Init();
   MX_USART2_UART_Init();
-  MX_TIM3_Init();
-  MX_TIM4_Init();
 
-  HAL_TIM_Base_Start_IT(&htim3);
-
+  //Init display
   menuDisplay_Init();
+  data.statusMessage = "LWOW scan";
+  menuDisplay_Update(0);
 
-  while (1)
-  {
+  //Init LWOW
+  lwow_init(&ow, &lwow_ll_drv_stm32_hal, &huart2);
+
+  //Thermometer must be found to ensure safe operation.
+  while(!scan_onewire_devices(&ow, rom_ids, LWOW_ARRAYSIZE(rom_ids), &rom_found) == lwowOK)
 	  wait(100);
 
-	  menuDisplay_Update();
-  }
+  //Configure found DS18B20 thermometer
+  lwow_ds18x20_start(&ow, rom_ids);
+  lwow_ds18x20_set_resolution(&ow, rom_ids, 12);
 
+  //Start Peltier PWM timer.
+  MX_TIM4_Init();
+  HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_4);
+
+  //Start display and logic timer.
+  MX_TIM3_Init();
+  HAL_TIM_Base_Start_IT(&htim3);
+
+  //Start cooling!
+  enableCooling();
+
+  while (1);
 
 }
-
-
-
 
 void SystemClock_Config(void)
 {
@@ -106,20 +119,3 @@ void Error_Handler(void)
   }
   /* USER CODE END Error_Handler_Debug */
 }
-
-#ifdef  USE_FULL_ASSERT
-/**
-  * @brief  Reports the name of the source file and the source line number
-  *         where the assert_param error has occurred.
-  * @param  file: pointer to the source file name
-  * @param  line: assert_param error line source number
-  * @retval None
-  */
-void assert_failed(uint8_t *file, uint32_t line)
-{
-  /* USER CODE BEGIN 6 */
-  /* User can add his own implementation to report the file name and line number,
-     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
-  /* USER CODE END 6 */
-}
-#endif /* USE_FULL_ASSERT */

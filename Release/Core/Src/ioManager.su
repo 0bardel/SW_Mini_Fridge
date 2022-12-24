@@ -1,0 +1,7 @@
+../Core/Src/ioManager.c:12:6:wait	0	static
+../Core/Src/ioManager.c:19:6:clampedIncrement	8	static
+../Core/Src/ioManager.c:25:6:handleButtons	0	static
+../Core/Src/ioManager.c:40:6:changeTargetValues	0	static
+../Core/Src/ioManager.c:51:6:handleEncoderTurn	8	static
+../Core/Src/ioManager.c:77:6:calculateOutput	0	static
+../Core/Src/ioManager.c:83:6:HAL_GPIO_EXTI_Callback	0	static

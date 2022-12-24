@@ -29,7 +29,13 @@ Core/Src/stm32f4xx_it.o: ../Core/Src/stm32f4xx_it.c ../Core/Inc/main.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
- ../Core/Inc/stm32f4xx_it.h
+ ../Core/Inc/stm32f4xx_it.h ../Core/Inc/menuDisplay.h \
+ ../Core/Inc/ioManager.h ../Core/Inc/main.h \
+ G:/Dokumenty/SW_Mini_Fridge/SW_Mini_Fridge/lwow/lwow/src/include/lwow/lwow.h \
+ G:/Dokumenty/SW_Mini_Fridge/SW_Mini_Fridge/lwow/lwow/src/include/lwow/lwow_opt.h \
+ G:/Dokumenty/SW_Mini_Fridge/SW_Mini_Fridge/lwow/lwow/src/include/lwow/lwow_opts.h \
+ G:/Dokumenty/SW_Mini_Fridge/SW_Mini_Fridge/lwow/lwow/src/include/lwow/devices/lwow_device_ds18x20.h \
+ ../Core/Inc/scan_devices.h
 ../Core/Inc/main.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 ../Core/Inc/stm32f4xx_hal_conf.h:
@@ -62,3 +68,11 @@ Core/Src/stm32f4xx_it.o: ../Core/Src/stm32f4xx_it.c ../Core/Inc/main.h \
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:
 ../Core/Inc/stm32f4xx_it.h:
+../Core/Inc/menuDisplay.h:
+../Core/Inc/ioManager.h:
+../Core/Inc/main.h:
+G:/Dokumenty/SW_Mini_Fridge/SW_Mini_Fridge/lwow/lwow/src/include/lwow/lwow.h:
+G:/Dokumenty/SW_Mini_Fridge/SW_Mini_Fridge/lwow/lwow/src/include/lwow/lwow_opt.h:
+G:/Dokumenty/SW_Mini_Fridge/SW_Mini_Fridge/lwow/lwow/src/include/lwow/lwow_opts.h:
+G:/Dokumenty/SW_Mini_Fridge/SW_Mini_Fridge/lwow/lwow/src/include/lwow/devices/lwow_device_ds18x20.h:
+../Core/Inc/scan_devices.h:

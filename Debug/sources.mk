@@ -24,5 +24,7 @@ SUBDIRS := \
 Core/Src \
 Core/Startup \
 Drivers/STM32F4xx_HAL_Driver/Src \
+lwow/lwow/src/devices \
+lwow/lwow/src/lwow \
 stm32-ssd1306/ssd1306 \
 

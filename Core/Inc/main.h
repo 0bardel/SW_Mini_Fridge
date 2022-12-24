@@ -16,9 +16,7 @@
   *
   ******************************************************************************
   */
-/* USER CODE END Header */
 
-/* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __MAIN_H
 #define __MAIN_H
 
@@ -26,57 +24,86 @@
 extern "C" {
 #endif
 
-/* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx_hal.h"
 #include <stdbool.h>
 
-typedef volatile struct Data{
-	bool fanEnable;
-	bool peltEnable;
-	bool targetMode;
+/*
+ *Operation modes
+ */
+
+enum operationMode{
+	POWER_OFF = 0,
+	TEMPERATURE_TARGET = 1,
+	POWER_TARGET = 2
+};
+
+/*
+ * GPIO Pins definitions
+ */
+
+#define PELTIER_PIN GPIO_PIN_3
+#define FAN_OUT_PIN GPIO_PIN_6
+#define FAN_IN_PIN GPIO_PIN_5
+
+#define BUTTON_ENCODER_PIN GPIO_PIN_12
+#define BUTTON_POWER_PIN GPIO_PIN_13
+#define BUTTON_INTERRUPT_TRIGGER_PIN GPIO_PIN_9
+
+#define ENCODER_A_PIN GPIO_PIN_8
+#define ENCODER_B_PIN GPIO_PIN_15
+
+
+/*
+ * Ports of the GPIO Pins
+ */
+
+#define PELTIER_PORT GPIOB
+#define FAN_OUT_PORT GPIOB
+#define FAN_IN_PORT GPIOB
+
+#define BUTTON_ENCODER_PORT GPIOB
+#define BUTTON_POWER_PORT GPIOB
+#define BUTTON_INTERRUPT_TRIGGER_PORT GPIOA
+
+#define ENCODER_A_PORT GPIOA
+#define ENCODER_B_PORT GPIOB
+
+
+/*
+ * Power and temperature ranges
+ */
+#define POWER_MAX 100
+#define POWER_MIN 0
+
+	//targetTemp is expressed in 0.1C increments
+#define TEMPERATURE_MAX 200
+#define TEMPERATURE_MIN -100
+
+
+
+/*
+ * Data model
+ */
+
+typedef struct Data{
 
 	float Kp;
 	float Ki;
 	float Kd;
+	float integral;
 
 	float measuredTemp;
 	int targetTemp;
 	int currentPow;
 
+	enum operationMode mode;
+	char* statusMessage;
 
 } Data;
-/* Private includes ----------------------------------------------------------*/
-/* USER CODE BEGIN Includes */
 
-/* USER CODE END Includes */
 
-/* Exported types ------------------------------------------------------------*/
-/* USER CODE BEGIN ET */
-
-/* USER CODE END ET */
-
-/* Exported constants --------------------------------------------------------*/
-/* USER CODE BEGIN EC */
-
-/* USER CODE END EC */
-
-/* Exported macro ------------------------------------------------------------*/
-/* USER CODE BEGIN EM */
-
-/* USER CODE END EM */
-
-/* Exported functions prototypes ---------------------------------------------*/
 void Error_Handler(void);
 
-/* USER CODE BEGIN EFP */
-
-/* USER CODE END EFP */
-
-/* Private defines -----------------------------------------------------------*/
-
-/* USER CODE BEGIN Private defines */
-
-/* USER CODE END Private defines */
 
 #ifdef __cplusplus
 }

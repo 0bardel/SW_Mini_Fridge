@@ -1,5 +1,11 @@
 ../Core/Src/ioManager.c:12:6:wait	24	static
-../Core/Src/ioManager.c:17:6:handleButtons	4	static
-../Core/Src/ioManager.c:25:6:changeTargetValues	16	static
-../Core/Src/ioManager.c:34:6:handleEncoderTurn	16	static
-../Core/Src/ioManager.c:60:6:HAL_GPIO_EXTI_Callback	16	static
+../Core/Src/ioManager.c:18:6:toggleFans	16	static
+../Core/Src/ioManager.c:24:6:clampedIncrement	24	static
+../Core/Src/ioManager.c:30:6:clampedAssign	24	static
+../Core/Src/ioManager.c:36:6:handleButtons	4	static
+../Core/Src/ioManager.c:55:6:changeTargetValues	16	static
+../Core/Src/ioManager.c:69:6:handleEncoderTurn	16	static
+../Core/Src/ioManager.c:95:6:handleOutput	32	static
+../Core/Src/ioManager.c:117:6:enableCooling	8	static
+../Core/Src/ioManager.c:123:6:disableCooling	8	static
+../Core/Src/ioManager.c:130:6:HAL_GPIO_EXTI_Callback	16	static

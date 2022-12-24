@@ -1,0 +1,4 @@
+../Core/Src/lwow_ll_stm32.c:131:1:init	24	static
+../Core/Src/lwow_ll_stm32.c:150:1:deinit	24	static
+../Core/Src/lwow_ll_stm32.c:165:1:set_baudrate	24	static
+../Core/Src/lwow_ll_stm32.c:182:1:transmit_receive	32	static
