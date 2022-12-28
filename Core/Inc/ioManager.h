@@ -7,8 +7,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t);
 void wait(uint32_t);
 void handleOutput();
 void handleButtons();
-void enableCooling();
-void disableCooling();
+void toggleFans(bool);
 
 
 #endif

@@ -42,8 +42,8 @@ enum operationMode{
  */
 
 #define PELTIER_PIN GPIO_PIN_3
-#define FAN_OUT_PIN GPIO_PIN_6
-#define FAN_IN_PIN GPIO_PIN_5
+#define FAN_OUT_PIN GPIO_PIN_5
+#define FAN_IN_PIN GPIO_PIN_4
 
 #define BUTTON_ENCODER_PIN GPIO_PIN_12
 #define BUTTON_POWER_PIN GPIO_PIN_13

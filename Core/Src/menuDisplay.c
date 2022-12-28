@@ -1,4 +1,6 @@
 #include <stdbool.h>
+#include <math.h>
+
 #include "main.h"
 #include "i2c.h"
 #include "tim.h"
@@ -25,6 +27,14 @@ int animationHelper(int i, int ac, int offset){
 }
 
 void menuDisplay_Update(bool animate){
+
+	if(data.mode == POWER_OFF){
+		ssd1306_SetDisplayOn(0);
+		return;
+	}
+
+	ssd1306_SetDisplayOn(1);
+
 	static uint8_t animationCounter;
 	animationCounter+=animate;
 	animationCounter%=5;
@@ -34,16 +44,17 @@ void menuDisplay_Update(bool animate){
 	//UI layout
 	ssd1306_FillBuffer(menubitmap_data, 1024);
 
-	int decimal = (int)floor((data.measuredTemp - floor(data.measuredTemp))*10);
+	int decimal = (int)((fabs(data.measuredTemp) - floor(fabs(data.measuredTemp)))*10);
+
 	int barSize = floor((float)data.currentPow / 100 * 126);
 
 
 	//Current Temperature
-	sprintf(tmpBuffer, "%2.0f",floor(data.measuredTemp));
+	sprintf(tmpBuffer, "%2.0f",data.measuredTemp > 0? floor(data.measuredTemp):ceil(data.measuredTemp));
 	ssd1306_SetCursor(3,4);
 	ssd1306_WriteString(tmpBuffer, Font_16x26,  1);
 
-	sprintf(tmpBuffer, "%1d",decimal);
+	sprintf(tmpBuffer, "%d",decimal);
 	ssd1306_SetCursor(39,4);
 	ssd1306_WriteString(tmpBuffer, Font_16x26,  1);
 	ssd1306_SetCursor(59,4);

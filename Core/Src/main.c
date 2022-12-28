@@ -1,4 +1,3 @@
-
 #include "main.h"
 #include "i2c.h"
 #include "tim.h"
@@ -18,10 +17,11 @@ lwow_t ow; 											//One-wire instance
 lwow_rom_t rom_ids[1]; 								//Found devices list.
 size_t rom_found; 									// Number of found OW ROMs.
 
-
-Data data = {1,0.1,-0.5,0,0,100,0,POWER_OFF,""};	//Data model used by pretty much everything
+Data data = {30,0.15,30,0,0,100,0,POWER_OFF,""};	//Data model used by pretty much everything
 
 void SystemClock_Config(void);
+
+
 
 int main(void)
 {
@@ -58,11 +58,15 @@ int main(void)
   HAL_TIM_Base_Start_IT(&htim3);
 
   //Start cooling!
-  enableCooling();
+	data.statusMessage = "";
+	data.mode = TEMPERATURE_TARGET;
+	toggleFans(1);
 
   while (1);
 
 }
+
+
 
 void SystemClock_Config(void)
 {
@@ -101,21 +105,12 @@ void SystemClock_Config(void)
   }
 }
 
-/* USER CODE BEGIN 4 */
 
-/* USER CODE END 4 */
 
-/**
-  * @brief  This function is executed in case of error occurrence.
-  * @retval None
-  */
 void Error_Handler(void)
 {
-  /* USER CODE BEGIN Error_Handler_Debug */
-  /* User can add his own implementation to report the HAL error return state */
   __disable_irq();
   while (1)
   {
   }
-  /* USER CODE END Error_Handler_Debug */
 }

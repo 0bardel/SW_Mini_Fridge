@@ -33,24 +33,55 @@ void clampedAssign(int* modifiedValue, int newValue, int max, int min){
 	*modifiedValue = *modifiedValue < min? min: *modifiedValue;
 }
 
+void toggleMode(){
+	switch(data.mode){
+				case TEMPERATURE_TARGET:
+					data.mode = POWER_TARGET;
+					break;
+				case POWER_TARGET:
+					data.integral = 0;
+					data.mode = TEMPERATURE_TARGET;
+					break;
+				case POWER_OFF:
+				default:
+					break;
+			}
+}
+
+void togglePower(){
+	switch(data.mode){
+					case TEMPERATURE_TARGET:
+					case POWER_TARGET:
+						data.integral = 0;
+						data.mode = POWER_OFF;
+						break;
+					case POWER_OFF:
+					default:
+						data.mode = TEMPERATURE_TARGET;
+						break;
+				}
+}
+
 void handleButtons(){
 	static uint32_t pressCooldown;
 	if(pressCooldown < uwTick){
 		pressCooldown = uwTick + 500;
-		switch(data.mode){
-			case TEMPERATURE_TARGET:
-				data.mode = POWER_TARGET;
+		while(1){
+			if(HAL_GPIO_ReadPin(BUTTON_POWER_PORT, BUTTON_POWER_PIN) == GPIO_PIN_RESET){
+				toggleMode();
 				break;
-			case POWER_TARGET:
-				data.integral = 0;
-				data.mode = TEMPERATURE_TARGET;
+			}
+			if(HAL_GPIO_ReadPin(BUTTON_ENCODER_PORT, BUTTON_ENCODER_PIN) == GPIO_PIN_RESET){
+				togglePower();
+			}
+			if(pressCooldown >= uwTick){
 				break;
-			case POWER_OFF:
-			default:
-				break;
+			}
 		}
 	}
 }
+
+
 
 void changeTargetValues(uint8_t dir){
 	switch(data.mode){
@@ -96,9 +127,11 @@ void handleOutput(){
 static float previous;
 	switch(data.mode){
 		case POWER_TARGET:;
-			__HAL_TIM_SET_COMPARE(&htim4, TIM_CHANNEL_4, data.currentPow * 655);
+			toggleFans(1);
+			__HAL_TIM_SET_COMPARE(&htim4, TIM_CHANNEL_4, 65535/100*data.currentPow);
 			break;
 		case TEMPERATURE_TARGET:;
+			toggleFans(1);
 			float e;
 			e = data.measuredTemp - data.targetTemp/10.0  ;
 			data.integral += e;
@@ -106,25 +139,16 @@ static float previous;
 			previous = e;
 			float u = (data.Kp * e) + (data.Ki * data.integral) + (data.Kd *derivative);
 			clampedAssign(&data.currentPow, u, POWER_MAX, POWER_MIN);
-			__HAL_TIM_SET_COMPARE(&htim4, TIM_CHANNEL_4, data.currentPow * 655);
+			__HAL_TIM_SET_COMPARE(&htim4, TIM_CHANNEL_4, 65535/100*data.currentPow);
+			break;
 		case POWER_OFF:
+			toggleFans(0);
 			__HAL_TIM_SET_COMPARE(&htim4, TIM_CHANNEL_4, 0);
 			break;
 	}
 
 }
 
-void enableCooling(){
-	data.statusMessage = "";
-	data.mode = TEMPERATURE_TARGET;
-	toggleFans(1);
-}
-
-void disableCooling(){
-	data.statusMessage = "Power off";
-	data.mode = POWER_OFF;
-	toggleFans(0);
-}
 
 //Encoder and button callbacks
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
